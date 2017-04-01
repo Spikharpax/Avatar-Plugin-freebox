@@ -38,6 +38,7 @@ function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { de
 
 - Editez le fichier `Avatar-Serveur/ia/intents/index.js`, allez à la fin du fichier et juste avant `function _interopRequireDefault(obj)` ajoutez les lignes suivantes:
 
+```javascript
 var _intentTvChannels = require('./intent.tv.channels');
 
 Object.defineProperty(exports, 'tvChannels', {
@@ -148,9 +149,9 @@ Les régles possibles que vous pouvez passer à Avatar:
 - "Allume la freebox" : Met la freebox sur On si elle est éteinte.
 - "Eteint la freebox" : Met la freebox sur Off si elle est allumée.
 - "Chaines favorites" : Met le bouquet "chaines favorites", si la freebox est éteinte, elle est allumée.
-- "Enregistrement" : Met les enregistrements, si la freebox est éteinte, elle est allumée.
+- "Enregistrement de la freebox" : Met les enregistrements, si la freebox est éteinte, elle est allumée.
 - "Toutes les chaines" : Met le bouquet "toutes les chaines", si la freebox est éteinte, elle est allumée.
-- "vidéos" : Met les vidéos, si la freebox est éteinte, elle est allumée.
+- "vidéos de la freebox" : Met les vidéos, si la freebox est éteinte, elle est allumée.
 - "home de la freebox" : Met la home de la freebox, si la freebox est éteinte, elle est allumée.
 - "Baisse un peu le son" : Baisse un peu le volume de la freebox
 - "Baisse le son" : Baisse beaucoup le volume de la freebox
