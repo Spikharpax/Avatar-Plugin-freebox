@@ -101,7 +101,7 @@ Lorsqu'un dialogue est activé (speak et askme), le son de le freebox peut-être
    
 ## Versions
 Version 1.1 (03-11-2017)
-- Les fichiers intent et action déplacés dans le répertoire du plugin. Chargés automatiquemet (Avatar serveur 0.1.5)
+- Les fichiers intent et action déplacés dans le répertoire du plugin. Chargés automatiquement (Avatar serveur 0.1.5)
 
 Version 1.0 
 - Version Released
