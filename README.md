@@ -7,89 +7,8 @@ Contrôle de la freebox Révolution de Free
 
 
 ## Installation
-
 - Dézippez le fichier `Avatar-Plugin-freebox-Master.zip` dans un répertoire temporaire
 - Copiez le répertoire `freebox` dans le répertoire `Avatar-Serveur/plugins`
-- Copiez les fichiers `intents/intent.tv.channels.js` et `intents/intent.tv.actions.js` dans le répertoire `Avatar-Serveur/ia/intents/`
-- Copiez les fichiers `actions/action.freebox.tv.js` et `actions/action.freebox.rules.js` dans le répertoire `Avatar-Serveur/ia/actions/`
-- Editez le fichier `Avatar-Serveur/ia/actions/index.js`, allez à la fin du fichier et juste avant `function _interopRequireDefault(obj)` ajoutez les lignes suivantes:
-
-```javascript
-var _actionFreeboxTV = require('./action.freebox.tv');
-
-Object.defineProperty(exports, 'freeTV', {
-  enumerable: true,
-  get: function get() {
-    return _interopRequireDefault(_actionFreeboxTV).default;
-  }
-});
-
-var _actionFreeboxRules = require('./action.freebox.rules');
-
-Object.defineProperty(exports, 'freeRules', {
-  enumerable: true,
-  get: function get() {
-    return _interopRequireDefault(_actionFreeboxRules).default;
-  }
-});
-// Fin du fichier...
-function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
-```
-
-- Editez le fichier `Avatar-Serveur/ia/intents/index.js`, allez à la fin du fichier et juste avant `function _interopRequireDefault(obj)` ajoutez les lignes suivantes:
-
-```javascript
-var _intentTvChannels = require('./intent.tv.channels');
-
-Object.defineProperty(exports, 'tvChannels', {
-  enumerable: true,
-  get: function get() {
-    return _interopRequireDefault(_intentTvChannels).default;
-  }
-});
-
-var _intentTvActions = require('./intent.tv.actions');
-
-Object.defineProperty(exports, 'tvActions', {
-  enumerable: true,
-  get: function get() {
-    return _interopRequireDefault(_intentTvActions).default;
-  }
-});
-
-// Fin du fichier...
-function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
-```
-
-- Editez le fichier `Avatar-Serveur/ia/index.js`
-	- Ajoutez dans l'import des intents, les intentions `tvChannels` et `tvActions`
-	- Ajoutez dans l'import des actions, les actions `freeTV` et `freeRules`
-	- Ajoutez dans la fonction export.intent(), l'association des 2 intentions-actions (2 lignes)
-
-```javascript
-import { tvChannels, tvActions, music, weather, hour,  blague, manageAvatar, shoppingList, translate, lastAction, intentEnd} from './intents';
-import { freeTV, freeRules, Sonos, forecastMsn, forecastYahoo, worldHour, jokeOfDay, avatarRules, shopping, translator, backupAction, actionEnd} from './actions';
-
-
-exports.intent = function () {
-
-	// Configure the intents
-	ava
-	 .intent(translate, translator)
-	 .intent(hour, worldHour)
-	 .intent(weather, [forecastYahoo, forecastMsn])
-	 // Déclarations freebox CI-DESSOUS !
-	 .intent(tvChannels, freeTV)
-	 .intent(tvActions, freeRules)
-	 //
-	 .intent(music, Sonos)
-	 .intent(blague, jokeOfDay)
-	 .intent(manageAvatar, avatarRules)
-	 .intent(shoppingList, shopping)
-	 .intent(lastAction, backupAction)
-	 .intent(intentEnd, actionEnd)  // Toujours à la fin, controle si une règle est passée
-}
-```
 
 
 ## Configuration
@@ -104,7 +23,7 @@ Retrouvez le code télécommande dans le menu système de la freebox.
 "remoteController_code": "93360526",
 ```	
 
-
+*
 ### Le jeton freebox
 Nécessaire pour que le plugin sache si la freebox est allumée ou éteinte.
 
@@ -181,5 +100,8 @@ Lorsqu'un dialogue est activé (speak et askme), le son de le freebox peut-être
 
    
 ## Versions
+Version 1.1 (03-11-2017)
+- Les fichiers intent et action déplacés dans le répertoire du plugin. Chargés automatiquemet (Avatar serveur 0.1.5)
+
 Version 1.0 
 - Version Released
