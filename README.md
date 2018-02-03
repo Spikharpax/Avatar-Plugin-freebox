@@ -49,7 +49,7 @@ Si vous disposez d'un accès, ajoutez vos informations dans les propriétés du 
 #### Créer un accès à la Freebox
 - Ouvrez une fenetre de commandes MS-DOS
 	- Menu `Démarrer` -> entrez `cmd`
-- Déplacez-vous dans le répertoire du plugin 
+- Déplacez-vous dans le répertoire `lib` du plugin 
 	- cd `<Freebox>/lib`
 - Exécutez le programme de création de l'accès
 	- FreeAuthenticate.bat
@@ -132,7 +132,7 @@ Lorsqu'un dialogue est activé (speak et askme), le son de le freebox est automa
 Version 1.2 (03-02-2018)
 - Ajout de la création automatique de la clé d'accès à la Freebox
 - Prise en compte du client Android
-	- Ajout d'actions pouvant être exécutées depuis le munu navigateur du smartphone
+	- Ajout d'actions pouvant être exécutées depuis le menu navigateur du smartphone
 - Modification de quelques règles vocales
 
 Version 1.1 (03-11-2017)
