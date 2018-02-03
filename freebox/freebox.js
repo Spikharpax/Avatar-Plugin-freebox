@@ -11,30 +11,64 @@ exports.action = function(data, callback){
 	}
 	
 	var tblCommand = {
-		freeboxOn: function() {freebox_OnOff('on',data.client)},	
+		freeboxOn: function() {freebox_OnOff('on',data.client, (data.action.noSpeak) ? data.action.noSpeak : null)},	
 		freeboxOff: function() {freebox_OnOff('off',data.client, (data.action.noSpeak) ? data.action.noSpeak : null)},
 		setChannel: function() {send_key(data.action.key.split('').join('|'));},
-		favourites: function() {free_favourites(data.client, (data.action.noSpeak) ? data.action.noSpeak : null);},
-		records: function() {free_records(data.client);},
+		favourites: function() {free_favourites(data.client, (data.action.noSpeak) ? data.action.noSpeak : null, (data.action.noSpeak) ? data.action.noSpeak : null);},
+		records: function() {free_records(data.client, (data.action.noSpeak) ? data.action.noSpeak : null);},
 		recordProgram: function() {free_recordProgram(data.action.hour, data.action.duration, data.action.ID, data.action.afterRecord)},
-		allChannels: function() {free_allChannels(data.client);},
-		videos: function() {free_videos(data.client);},
+		allChannels: function() {free_allChannels(data.client, (data.action.noSpeak) ? data.action.noSpeak : null);},
+		videos: function() {free_videos(data.client, (data.action.noSpeak) ? data.action.noSpeak : null);},
 		home:  function() {send_key('home|red');},
+		menu: function() {
+			switch ((data.action.set).toLowerCase()) {
+				case 'enregistrements':	
+					free_records(data.client);
+					break;
+				case 'toutes les chaines':	
+					free_allChannels(data.client);
+					break;
+				case 'vidéos':	
+					free_videos(data.client);
+					break;
+				case 'home':	
+					send_key('home|red');
+					break;
+			}
+		},
+		manageSound	: 	function() {
+							switch ((data.action.set).toLowerCase()) {
+								case 'monte un peu':
+									multi_keys('vol_inc*10');
+									break;
+								case 'monte':
+									multi_keys('vol_inc*20');
+									break;	
+								case 'baisse un peu':
+									multi_keys('vol_dec*10');
+									break;	
+								case 'baisse':
+									multi_keys('vol_dec*20');
+									break;											
+							}	
+						},	
 		soundUpLight: function() { if (!data.action.noSpeak) {
 										Avatar.speak('d\'accord', data.client, function(){ 
 											multi_keys('vol_inc*10', function(){
-												send_key('mute');	
+												if (!Avatar.isMobile(data.client))
+													send_key('mute');	
 												Avatar.Speech.end(data.client);
 											}); 
 										});
 									} else {
 										multi_keys('vol_inc*10');
 									}
-								 },
+								 },	
 		soundDownLight: function() {  if (!data.action.noSpeak) {
 										Avatar.speak('d\'accord', data.client, function(){ 
 											multi_keys('vol_dec*10', function(){ 
-												send_key('mute');
+												if (!Avatar.isMobile(data.client))
+													send_key('mute');
 												Avatar.Speech.end(data.client);
 											}); 
 										  });
@@ -44,14 +78,16 @@ exports.action = function(data, callback){
 								   },
 		soundUp: function() { Avatar.speak('d\'accord', data.client, function(){ 
 									multi_keys('vol_inc*20', function(){ 
-										send_key('mute');
+										if (!Avatar.isMobile(data.client))
+											send_key('mute');
 										Avatar.Speech.end(data.client);
 									}); 
 							   });
 							},
 		soundDown: function() { Avatar.speak('d\'accord', data.client, function(){ 
 									multi_keys('vol_dec*20', function(){ 
-										send_key('mute');
+										if (!Avatar.isMobile(data.client))
+											send_key('mute');
 										Avatar.Speech.end(data.client);
 									}); 
 							   });
@@ -136,19 +172,21 @@ function player_started(to, state, client) {
 }
 
 
-function  free_videos(client){
+function  free_videos(client, noSpeak){
 	
 	player_status()
 	.then(state => set_videos(state)) 
 	.then(record => buildURL(record,0))
 	.then(function() { 
-		Avatar.speak('c\'est fait', client, function(){ 
-			Avatar.Speech.end(client);
-	   });
+		if (!noSpeak)
+			Avatar.speak('c\'est fait', client, function(){ 
+				Avatar.Speech.end(client);
+		   });
 	})
 	.catch(function(err) {
 		error(err.red);
-		Avatar.Speech.end(client);
+		if (!noSpeak)
+			Avatar.Speech.end(client);
 	});
 
 }
@@ -170,19 +208,21 @@ function set_videos(state) {
 }
 
 // Toutes les chaines
-function  free_allChannels(client){
+function  free_allChannels(client, noSpeak){
 	
 	player_status()
 	.then(state => set_allChannels(state)) 
 	.then(record => buildURL(record,0))
 	.then(function() { 
-		Avatar.speak('c\'est fait', client, function(){ 
-			Avatar.Speech.end(client);
-	   });
+		if (!noSpeak)
+			Avatar.speak('c\'est fait', client, function(){ 
+				Avatar.Speech.end(client);
+		   });
 	})
 	.catch(function(err) {
 		error(err.red);
-		Avatar.Speech.end(client);
+		if (!noSpeak)
+			Avatar.Speech.end(client);
 	});
 
 }
@@ -204,19 +244,21 @@ function set_allChannels(state) {
 
 
 // Enregistrement
-function free_records (client){
+function free_records (client, noSpeak){
 	
 	player_status()
 	.then(state => set_records(state)) 
 	.then(record => buildURL(record,0))
 	.then(function() { 
-		Avatar.speak('c\'est fait', client, function(){ 
-			Avatar.Speech.end(client);
-	   });
+		if (!noSpeak)
+			Avatar.speak('c\'est fait', client, function(){ 
+				Avatar.Speech.end(client);
+		   });
 	})
 	.catch(function(err) {
 		error(err.red);
-		Avatar.Speech.end(client);
+		if (!noSpeak)
+			Avatar.Speech.end(client);
 	});
 
 }
@@ -335,7 +377,7 @@ function player_status () {
 	return new Promise(function (resolve, reject) {
 	
 		var token = require('./node_modules/token/token')();
-		token.PlayerOn(Config.modules.freebox.app_token, Config.modules.freebox.app_id, Config.modules.freebox.app_version, function(state) {  
+		token.PlayerOn(Config.modules.freebox.auth.app_token, Config.modules.freebox.auth.app_id, Config.modules.freebox.auth.app_version, function(state) {  
 			if (state == -1) return reject('il n\'y a pas de jeton pour la freebox');
 			resolve(state);
 		});

@@ -2,12 +2,17 @@
 	"modules" : { 
 		"freebox"  : {
 			"description": "gestion de la freebox",
-			"version": "1.1",
-			"remoteController_code": "",
-			"app_token": "",
-			"app_id": "",
-			"app_version": "0.0.1",
+			"version": "1.2",
+			"remoteController_code": "ENTER REMOTE CODE HERE",
 			"afterRecord": "up|up|up|ok",
+			"auth" : {
+				"app_id": "Avatar.freebox",
+				"app_version": "0.0.1",
+				"app_name": "Freebox for Avatar",
+				"device_name"	: "Avatar Server",
+				"app_token": "GENERATED_TOKEN",
+				"track_id": "GENERATED_TRACK_ID"
+			},
 			"tts_action" : {
 				 "1" : "je mets tf1",
 				 "2" : "je mets france 2",
@@ -44,7 +49,13 @@
 				 "207" : "je mets science et vie",
 				 "previousChannel" : "ok|d'accord",
 				 "nextChannel" : "ok|d'accord",
-				 "goBack" : "ok|d'accord"
+				 "goBack" : "ok|d'accord",
+				 "freeboxOn": "ok|d'accord|Je m'en occupe",
+				 "freeboxOff" : "ok|d'accord|Je m'en occupe",
+				 "favourites" : "ok|d'accord|Je m'en occupe",
+				 "records": "ok|d'accord|Je m'en occupe",
+				 "allChannels": "ok|d'accord|Je m'en occupe",
+				 "videos": "ok|d'accord|Je m'en occupe"
 			},
 			"channels" : {
 				 "1" : ["tf1","mytf1","MyTF1","TF1"],
@@ -92,9 +103,9 @@
 				"allChannels" 	: ["all * (string|channel)"],
 				"videos" 		: ["video * freebox"],
 				"home" 			: ["home * freebox"],
-				"soundUpLight" 	: ["light up * sound","slightly * sound","slightly up * sound","~mount~ * sound slightly","slightly ~raise~ * sound","~increase~ * sound [Determiner]? bite ","~increase~ * little [Determiner]? sound","~increase~ * bite [Determiner]? sound","~increase~ * sound slightly","slightly ~increase~ * sound"],
-				"soundUp" 		: ["up * volume","(up|~mount~|~raise~|~increase~) * sound"],
 				"soundDownLight": ["slightly lower * sound","slightly reduce * sound","lower * sound slightly","lower * sound * bite","~summarize~ * bite [Determiner]? sound","low * sound [Determiner]? little","lower * sound [Determiner]? little"],
+				"soundUpLight" 	: ["light up * sound","slightly * sound","slightly up * sound","~mount~ * sound slightly","~raise~ * sound slightly","slightly ~raise~ * sound","~increase~ * sound [Determiner]? bite ","~increase~ * little [Determiner]? sound","~increase~ * bite [Determiner]? sound","~increase~ * sound slightly","slightly ~increase~ * sound"],
+				"soundUp" 		: ["get louder","up * volume","(up|~mount~|~raise~|~increase~) * sound"],
 				"soundDown" 	: ["down [Determiner]? sound","reduce [Determiner]? sound","turn [Determiner]? [Determiner]? sound","turn down [Determiner]? [Determiner]? sound","lower [Determiner]? sound"],
 				"mute" 			: ["~mute~ [Determiner]? sound","silence"]
 			}

@@ -3,7 +3,11 @@ freebox
 
 Ce plugin est un add-on pour le framework [Avatar](https://github.com/Spikharpax/Avatar-Serveur)
 
-Contrôle de la freebox Révolution de Free 
+Gestion de la freebox Révolution de Free 
+
+![GitHub Logo](/logo/Freebox-Revolution.jpg)
+
+<BR>
 
 
 ## Installation
@@ -20,26 +24,53 @@ Placez dans la propriété `remoteController_code` le code télécommande de la 
 Retrouvez le code télécommande dans le menu système de la freebox.
 
 ```xml
-"remoteController_code": "93360526",
+"remoteController_code": "93368926",
 ```	
 
-*
-### Le jeton freebox
+### Accès à la Freebox
 Nécessaire pour que le plugin sache si la freebox est allumée ou éteinte.
 
-**Important**: Cette version n'inclut pas la création d'un jeton freebox serveur.
-
-Vous pouvez utiliser le plugin [freebox](https://github.com/Spikharpax/SARAH-Plugin-freebox) disponible sur ce github pour générer le jeton avec l'assistant vocal [S.A.R.A.H.](http://encausse.net/s-a-r-a-h)
+**Important**: Cette version inclut la création d'un accès à la Freebox.
 
 Si vous n'ajoutez pas de jeton, seules les commandes qui ne vérifient pas si la freebox est allumée ou éteinte fonctionneront. Vous pouvez aussi supprimer les fonctions de contrôle dans ces commandes du fichier js du plugin pour qu'elle puissent fonctionner sans.
 
-Si vous disposez d'un jeton, ajoutez les informations dans les propriétés comme ci-dessous:
+Si vous disposez d'un accès, ajoutez vos informations dans les propriétés du plugin comme l'exemple ci-dessous:
 ```xml
-"app_token": "4rqfacr3dltsSB81KKlt67q8/FTCsyCCRnJUtRzYZIvdmNWjWYumq8OKG/slMQxs",
-"app_id": "sarah.freeboxOS",
-"app_version": "0.0.1",
+"auth" : {
+	"app_id": "Avatar.freebox",
+	"app_version": "0.0.1",
+	"app_name": "Freebox for Avatar",
+	"device_name"	: "Avatar Server",
+	"app_token": "4rqfacrJJJtySB81KKlkUgq8/FTCsyCCRnJUtRzYZIvdmNWjWYumq8OKG/slMQxs",
+	"track_id": "3"
+},
 ```	
 
+#### Créer un accès à la Freebox
+- Ouvrez une fenetre de commandes MS-DOS
+	- Menu `Démarrer` -> entrez `cmd`
+- Déplacez-vous dans le répertoire du plugin 
+	- cd `<Freebox>/lib`
+- Exécutez le programme de création de l'accès
+	- FreeAuthenticate.bat
+	
+Suivez les instructions à l'écran.
+
+Le fichier freebox.prop est automatiquement mis à jour avec la clé créée.
+
+Vous devez ensuite vérifier dans l'interface de gestion de votre Freebox la création de la clé:
+- Ouvrez votre interface de gestion dans un navigateur internet
+	- mafreebox.freebox.fr/login.php
+	- Dans les paramètres de gestion de la Freebox, allez dans la section `Divers` puis `Gestion des accès`
+	- Cliquez sur l'onglet `Applications`
+	- L'application `Freebox for Avatar` doit se trouver dans la liste
+	- Cliquez sur l'icone `Editer`
+	- Visualisez les droits d'accès
+	- Cliquez sur `OK`
+	
+Après avoir redémarré Avatar pour que le fichier de propriétés du plugin soit rechargé, vous pouvez tester l'utilisation en dictant la règle `Allume la Freebox`
+	
+	
 ### Les chaines
 Vous pouvez définir les chaines qui peuvent être dictées dans l'objet "channels".
 
@@ -51,7 +82,7 @@ Par exemple, je veux pouvoir mettre la chaine TF1 en disant n'importe quelle rè
 	"1" : ["tf1","mytf1","MyTF1","TF1"],
 ```	
 
-Plusieurs résultats de traduction sont possibles, j'ai donc plusieurs syntaxes possibles pour TF1.
+Plusieurs résultats de traduction sont possibles, dans l'exemple ci-dessus, il y a donc plusieurs syntaxes possibles pour TF1.
 
 
 ### Les commandes
@@ -92,14 +123,18 @@ Par exemple:
 ```	
 
 ### Intégration avec Avatar
-Avatar inclut automatiquement ce plugin dans la gestion des règles vocales. 
+Avatar inclut automatiquement ce plugin dans la gestion du son pour les règles vocales. 
 
-Lorsqu'un dialogue est activé (speak et askme), le son de le freebox peut-être automatiquement coupé afin de réduire les possibilités d'incompréhension. Après l'exécution de la règle, le son est remit automatiquement.
+Lorsqu'un dialogue est activé (speak et askme), le son de le freebox est automatiquement coupé afin de réduire les possibilités d'incompréhension. Après l'exécution de la règle, le son est remit automatiquement.
 
 
-
-   
 ## Versions
+Version 1.2 (03-02-2018)
+- Ajout de la création automatique de la clé d'accès à la Freebox
+- Prise en compte du client Android
+	- Ajout d'actions pouvant être exécutées depuis le munu navigateur du smartphone
+- Modification de quelques règles vocales
+
 Version 1.1 (03-11-2017)
 - Les fichiers intent et action déplacés dans le répertoire du plugin. Chargés automatiquement (Avatar serveur 0.1.5)
 

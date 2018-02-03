@@ -24,13 +24,16 @@ exports.default = function (state) {
 					tts = true;
 				}
 				
+				var noSpeak = (rule == "freeboxOn" || rule == "freeboxOff"  || rule == "favourites"  || rule == "records"  || rule == "allChannels"  || rule == "videos") ? true : false; 
+				
 				if (state.debug) info('ActionFreebox'.bold.yellow, 'action:', rule.yellow);
 				
 					state.action = {
 						module: 'freebox',
 						command: rule,
 						value: value,
-						tts: tts		
+						tts: tts,
+						noSpeak : noSpeak	
 					};	
 			}		
 				
