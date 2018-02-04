@@ -125,7 +125,7 @@ Par exemple:
 ### Intégration avec Avatar
 Avatar inclut automatiquement ce plugin dans la gestion du son pour les règles vocales. 
 
-Lorsqu'un dialogue est activé (speak et askme), le son de le freebox est automatiquement coupé afin de réduire les possibilités d'incompréhension. Après l'exécution de la règle, le son est remit automatiquement.
+Lorsqu'un dialogue est activé (speak et askme), le son de la freebox est automatiquement coupé afin de réduire les possibilités d'incompréhension. Après l'exécution de la règle, le son est remit automatiquement.
 
 
 ## Versions
